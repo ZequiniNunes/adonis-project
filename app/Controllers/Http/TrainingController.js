@@ -7,7 +7,7 @@ class TrainingController {
         return await Training.all()
     }
     async show({params}){
-        const training = await training.findOrFail(params.id)
+        const training = await Training.findOrFail(params.id)
         return training
     }
     async store({request}){
@@ -18,7 +18,7 @@ class TrainingController {
             "exercises"
         ])
 
-        const training = await training.save(data)
+        const training = await Training.save(data)
 
         if(exercises){
             await training.exercises().attack(exercises)
@@ -28,10 +28,26 @@ class TrainingController {
         return training
     }
     async update({params, request}){
-        
+        const { exercises, ...data} = request.only([
+            "client_id",
+            "name",
+            "observation",
+            "exercises"
+        ])
+        const training = await Training.findOrFail(params.id)
+        training.merge(data)
+        await training.save()
+
+        if(exercises){
+            await training.exercises().sync(exercises)
+        }
+
+        await training.load('exercises')
+        return training
     }
     async destroy({params}){
-        
+        const training = await Training.findOrFail(params.id)
+        return training.delete()
     }
 }
 

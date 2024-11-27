@@ -13,7 +13,7 @@ class User extends Model {
     })
   }
   tokens () {
-    return this.basMany('App/Models/Token')
+    return this.hasMany('App/Models/Token')
   }
 
   cliente () {

@@ -9,8 +9,8 @@ Route.get('/', () => {
 Route.post('/sessions', 'SessionController.create')
 Route.put('/sessions', 'SessionController.refreshToken')
 
-Route.resource('users', 'UserController').apiOnly()
-Route.resource('clients', 'ClientController').apiOnly()
-Route.resource('exercises', 'ExerciseController').apiOnly()
-Route.resource('training', 'TrainingController').apiOnly()
+Route.resource('users', 'UserController').apiOnly().middleware('auth.jwt')
+Route.resource('clients', 'ClientController').apiOnly().middleware('auth.jwt')
+Route.resource('exercises', 'ExerciseController').apiOnly().middleware('auth.jwt')
+Route.resource('training', 'TrainingController').apiOnly().middleware('auth.jwt')
 

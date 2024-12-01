@@ -12,6 +12,14 @@ class User extends Model {
       }
     })
   }
+
+  static get traits(){
+    return[
+      '@provider:Adonis/Acl/HasRole',
+      '@provider:Adonis/Acl/HasPermission'
+    ]
+  }
+
   tokens () {
     return this.hasMany('App/Models/Token')
   }

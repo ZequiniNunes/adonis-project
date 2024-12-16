@@ -3,7 +3,8 @@
 const Exercise = use("App/Models/Exercise")
 
 class ExerciseController {
-    async index(){
+    async index({request}){
+        
         return await Exercise.all()
     }
     async show({params}){
@@ -15,8 +16,10 @@ class ExerciseController {
             "name",
             "observation",
             "series",
-            "waiting_time"
+            "waiting_time",
+            ""
         ])
+
         const exercise = await exercise.create(data)
         return exercise
     }
